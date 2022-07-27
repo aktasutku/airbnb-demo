@@ -4,7 +4,7 @@ import { useRouter } from "next/dist/client/router";
 import { format } from "date-fns";
 import InfoCard from "../components/InfoCard";
 
-function search({ searchResults }) {
+function Search({ searchResults }) {
   const router = useRouter();
   const { location, startDate, endDate, noOfGuests } = router.query;
 
@@ -20,9 +20,7 @@ function search({ searchResults }) {
 
       <main className="flex">
         <section className="flex-grow pt-14 px-6">
-          <p className="text-xs">
-            300+ Stays for {noOfGuests} guests
-          </p>
+          <p className="text-xs">300+ Stays for {noOfGuests} guests</p>
           <h1 className="text-3xl font-semibold mt-2 mb-6">
             Stays in {location}
           </h1>
@@ -59,7 +57,7 @@ function search({ searchResults }) {
   );
 }
 
-export default search;
+export default Search;
 
 export async function getServerSideProps() {
   const searchResults = await fetch("https://links.papareact.com/isz").then(
