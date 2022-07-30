@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useRouter } from "next/dist/client/router";
-import { format } from "date-fns";
+import moment from "moment";
 import InfoCard from "../components/InfoCard";
 import Map from "../components/Map";
 
@@ -9,11 +9,13 @@ function Search({ searchResults }) {
   const router = useRouter();
   const { location, startDate, endDate, noOfGuests } = router.query;
 
-  // console.log(startDate + "---" + endDate)
+  const sDate = moment(startDate);
+  const eDate = moment(endDate);
 
-  //   const formattedStartDate = format(new Date(startDate), "dd MMMM yy");
-  //   const formattedEndDate = format(new Date(endDate), "dd MMMM yy");
-  //   const range = `${formattedStartDate} - ${formattedEndDate}`;
+  const formattedStartDate = sDate.utc().format("DD MMMM yyyy");
+  const formattedEndDate = eDate.utc().format("DD MMMM yyyy");
+  const range = `${formattedStartDate} - ${formattedEndDate}`;
+  console.log(range)
 
   return (
     <div>
@@ -21,7 +23,7 @@ function Search({ searchResults }) {
 
       <main className="flex">
         <section className="flex-grow pt-14 px-6">
-          <p className="text-xs">300+ Stays for {noOfGuests} guests</p>
+          <p className="text-xs">300+ Stays between {range} for {noOfGuests} guests</p>
           <h1 className="text-3xl font-semibold mt-2 mb-6">
             Stays in {location}
           </h1>
@@ -53,7 +55,7 @@ function Search({ searchResults }) {
         </section>
 
         <section className="hidden xl:inline-flex xl:min-w-[600px]">
-          <Map searchResults={searchResults}/>
+          <Map searchResults={searchResults} />
         </section>
       </main>
 
